@@ -14,29 +14,35 @@ const App = () => {
 
     // Product Data fetch
     const fetchData = async () => {
-      fetch('https://dummyjson.com/products').then((res) => {
-        return res.json()
-      }).then((data) => {
-        setProductData(data?.products)
-      })
-    }
+      try {
+        const res = await fetch('https://dummyjson.com/products');
+        const data = await res.json();
+        setProductData(data?.products || []);
+      } catch (err) {
+        console.error("Failed to fetch products:", err);
+      }
+    };
     fetchData(); // fetch call
   }, [])
 
   return (
     <>
-      <header>
-        <h1>eCommerce website</h1>
-        <div className='cart-badge'>
-          <img height={'32px'} src={cartIcon}></img>
-          <span className='cart-item-count'>{cartItemsCount}</span>
+      {productData.length && (<div>
+        <header>
+          <h1>eCommerce website</h1>
+
+          <div className='cart-badge'>
+            <img height={'32px'} src={cartIcon}></img>
+            <span className='cart-item-count'>{cartItemsCount}</span>
+          </div>
+        </header>
+        <div className='card-wrapper'>
+          {productData?.map((item) => {
+            return <Card key={item?.id} product={item} onCartUpdate={setCartItemsCount} />
+          })}
         </div>
-      </header>
-      <div className='card-wrapper'>
-        {productData?.map((item) => {
-          return <Card key={item?.id} product={item} onCartUpdate={setCartItemsCount} />
-        })}
-      </div>
+      </div>)}
+
     </>
 
   )
