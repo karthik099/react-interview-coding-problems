@@ -26,11 +26,9 @@ describe('App', () => {
   // it("load cart count from localStorage", async () => {
   //   localStorage.setItem("cart", JSON.stringify([{ id: 1 }, { id: 2 }]));
   //   mockFetch({ products: [] });
-
   //   render(<App />);
-
   //   await waitFor(() => {
-  //     expect(screen.getByText("2")).toBeInTheDocument();
+  //     expect(screen.getByText("2")).not.toBeInTheDocument();
   //   });
   // });
 
