@@ -1,0 +1,38 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  align-items: stretch;
+}
+
+.card .title {
+  margin: 10px 0;
+  text-align: left;
+  height: 50px;
+}
+
+.card .desc {
+  height: 110px;
+  font-size: 12px;
+  text-align: left;
+}
+
+.card .price {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.add-to-cart {
+  background: #f8bd19;
+  color: #000;
+}
+.add-to-cart.added {
+  cursor: not-allowed;
+}

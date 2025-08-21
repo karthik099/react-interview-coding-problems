@@ -1,39 +1,44 @@
 import { useEffect, useState } from 'react';
 import './App.css'
 import Card from './components/cart/card'
-// import useFetchproducts from './hooks/useFetchproducts';
+import cartIcon from "./assets/cart.png";
 
-function App() {
+const App = () => {
 
   const [productData, setProductData] = useState([]);
-  const [cart, setCart] = useState({});
+  const [cartItemsCount, setCartItemsCount] = useState(0);
   useEffect(() => {
 
-    //setting to localstorage for the first time
-    if (!localStorage.getItem('Cart')) {
-      localStorage.setItem('Cart', JSON.stringify(cart))
-    }
+    const cart = localStorage.getItem("cart");
+    if (cart) setCartItemsCount(JSON.parse(cart).length);
 
-    // Product Data fetch - can be moved to a custom Hook as well
+    // Product Data fetch
     const fetchData = async () => {
       fetch('https://dummyjson.com/products').then((res) => {
         return res.json()
       }).then((data) => {
-        console.log(data?.products)
         setProductData(data?.products)
       })
     }
     fetchData(); // fetch call
-
   }, [])
 
   return (
-    <div style={{ display: 'flex' }}>      
+    <>
+      <header>
+        <h1>eCommerce website</h1>
+        <div className='cart-badge'>
+          <img height={'32px'} src={cartIcon}></img>
+          <span className='cart-item-count'>{cartItemsCount}</span>
+        </div>
+      </header>
+      <div className='card-wrapper'>
+        {productData?.map((item) => {
+          return <Card key={item?.id} product={item} onCartUpdate={setCartItemsCount} />
+        })}
+      </div>
+    </>
 
-      {productData?.map((item) => {
-        <Card data={item}/>
-      })}
-    </div>
   )
 }
 

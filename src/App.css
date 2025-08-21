@@ -4,3 +4,26 @@
   padding: 2rem;
   text-align: center;
 }
+
+.card-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+.cart-badge{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 70px;
+}
+.cart-item-count{
+  padding: 5px;
+  color: red;
+  width: 24px;
+  border-radius: 50%;
+  border:1px solid #CCC;
+  margin: 10px 10px;
+  font-size: 16px;
+  font-weight: 700;
+}
