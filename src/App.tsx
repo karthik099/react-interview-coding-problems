@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import './App.css'
-import Card from './components/cart/card'
+import Card from './components/card/card'
 import cartIcon from "./assets/cart.png";
+import Navbar from './components/navbar/navbar';
+import { Route, Routes } from 'react-router-dom';
+import Users from './components/users/users';
 
 const App = () => {
 
@@ -30,17 +33,29 @@ const App = () => {
       {productData.length && (<div>
         <header>
           <h1>eCommerce website</h1>
-
-          <div className='cart-badge'>
-            <img height={'32px'} src={cartIcon}></img>
-            <span className='cart-item-count'>{cartItemsCount}</span>
+          <div className='header-wrap'>
+            <Navbar />
+            <div className='cart-badge'>
+              <img height={'32px'} src={cartIcon}></img>
+              <span className='cart-item-count'>{cartItemsCount}</span>
+            </div>
           </div>
         </header>
-        <div className='card-wrapper'>
-          {productData?.map((item) => {
-            return <Card key={item?.id} product={item} onCartUpdate={setCartItemsCount} />
-          })}
-        </div>
+        <Routes>
+        {/* Home route shows products */}
+        <Route
+          path="/"
+          element={
+            <div className='card-wrapper'>
+              {productData?.map((item) => (
+                <Card key={item?.id} product={item} onCartUpdate={setCartItemsCount} />
+              ))}
+            </div>
+          }
+        />
+        {/* Users route */}
+        <Route path="/users" element={<Users />} />
+      </Routes>
       </div>)}
 
     </>
